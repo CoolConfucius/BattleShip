@@ -47,6 +47,24 @@ function placeShipAI(){
   };
 };
 
+function attackAI(){
+  var row = Math.floor((Math.random() * 10)); 
+  var col = Math.floor((Math.random() * 10)); 
+  while (grid[row][col] === "M" || grid[row][col] === "H"){
+    row = Math.floor((Math.random() * 10));
+    col = Math.floor((Math.random() * 10));  
+  } 
+  if (grid[row][col] === "S") {
+    grid[row][col] = "H";
+    $('#box'+row+col).text("H");
+    $('#box'+row+col).addClass("hit");
+  } else {
+    grid[row][col] = "M";
+    $('#box'+row+col).text("M");
+    $('#box'+row+col).addClass("miss");
+  }
+};
+
 function buttonClick(){
   var $this = $(this);
   if ($this.hasClass('join')) {
@@ -117,7 +135,7 @@ function buttonClick(){
           $('#bx'+row+col).addClass("miss");
         }
       }
-        
+      attackAI();     
     }; 
   };
 

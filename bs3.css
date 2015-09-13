@@ -29,16 +29,16 @@ h1 {
   background-color: #cccccc;
 }
 
-.hit{
-  background-color: red;
-}
-
 .miss {
   background-color: whitesmoke;
 }
 
 .occupied{
   background-color: #DEE0AD;
+}
+
+.hit{
+  background-color: red;
 }
 
 .btn{
