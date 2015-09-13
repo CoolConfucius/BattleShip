@@ -1,0 +1,33 @@
+body {
+  background-color: whitesmoke;
+}
+
+.container{
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.box {
+  height: 50px;
+  width: 50px;
+  margin: 2px;
+  display: inline-block;
+  border: 1px solid black;
+  background-color: grey;
+}
+
+.measure {
+  background-color: #cccccc;
+}
+
+.selected{
+  background-color: red;
+}
+
+.btn{
+  height: 30px;
+  width: 200px;
+}

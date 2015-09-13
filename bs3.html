@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BATTLE SHIP</title>
+  <link rel="stylesheet" href="bs3.css">
+  <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+</head>
+<body>
+
+  <div class="row">    
+    <div class="col-md-10 box measure">/</div>
+    <div class="col-md-10 box measure">0</div>
+    <div class="col-md-10 box measure">1</div>
+    <div class="col-md-10 box measure">2</div>
+    <div class="col-md-10 box measure">3</div>
+    <div class="col-md-10 box measure">4</div>
+    <div class="col-md-10 box measure">5</div>
+    <div class="col-md-10 box measure">6</div>
+    <div class="col-md-10 box measure">7</div>
+    <div class="col-md-10 box measure">8</div>
+    <div class="col-md-10 box measure">9</div>
+  </div>
+  <div id="A" class="row">    
+    <div class="col-md-10 box measure">A</div>
+    <div id="box00" class="col-md-10 box">O</div>
+    <div id="box01" class="col-md-10 box">O</div>
+    <div id="box02" class="col-md-10 box">O</div>
+    <div id="box03" class="col-md-10 box">O</div>
+    <div id="box04" class="col-md-10 box">O</div>
+    <div id="box05" class="col-md-10 box">O</div>
+    <div id="box06" class="col-md-10 box">O</div>
+    <div id="box07" class="col-md-10 box">O</div>
+    <div id="box08" class="col-md-10 box">O</div>
+    <div id="box09" class="col-md-10 box">O</div>
+  </div>
+  <div id="B" class="row">
+    <div class="col-md-10 box measure">B</div>
+    <div id="box10" class="col-md-10 box">O</div>
+    <div id="box11" class="col-md-10 box">O</div>
+    <div id="box12" class="col-md-10 box">O</div>
+    <div id="box13" class="col-md-10 box">O</div>
+    <div id="box14" class="col-md-10 box">O</div>
+    <div id="box15" class="col-md-10 box">O</div>
+    <div id="box16" class="col-md-10 box">O</div>
+    <div id="box17" class="col-md-10 box">O</div>
+    <div id="box18" class="col-md-10 box">O</div>
+    <div id="box19" class="col-md-10 box">O</div>
+  </div>
+  <div id="C" class="row">
+    <div class="col-md-10 box measure">C</div>
+    <div id="box20" class="col-md-10 box">O</div>
+    <div id="box21" class="col-md-10 box">O</div>
+    <div id="box22" class="col-md-10 box">O</div>
+    <div id="box23" class="col-md-10 box">O</div>
+    <div id="box24" class="col-md-10 box">O</div>
+    <div id="box25" class="col-md-10 box">O</div>
+    <div id="box26" class="col-md-10 box">O</div>
+    <div id="box27" class="col-md-10 box">O</div>
+    <div id="box28" class="col-md-10 box">O</div>
+    <div id="box29" class="col-md-10 box">O</div>
+  </div>
+  <div id="D" class="row">
+    <div class="col-md-10 box measure">D</div>
+    <div id="box30" class="col-md-10 box">O</div>
+    <div id="box31" class="col-md-10 box">O</div>
+    <div id="box32" class="col-md-10 box">O</div>
+    <div id="box33" class="col-md-10 box">O</div>
+    <div id="box34" class="col-md-10 box">O</div>
+    <div id="box35" class="col-md-10 box">O</div>
+    <div id="box36" class="col-md-10 box">O</div>
+    <div id="box37" class="col-md-10 box">O</div>
+    <div id="box38" class="col-md-10 box">O</div>
+    <div id="box39" class="col-md-10 box">O</div>      
+  </div>
+  <div id="E" class="row">
+    <div class="col-md-10 box measure">E</div>
+    <div id="box40" class="col-md-10 box">O</div>
+    <div id="box41" class="col-md-10 box">O</div>
+    <div id="box42" class="col-md-10 box">O</div>
+    <div id="box43" class="col-md-10 box">O</div>
+    <div id="box44" class="col-md-10 box">O</div>
+    <div id="box45" class="col-md-10 box">O</div>
+    <div id="box46" class="col-md-10 box">O</div>
+    <div id="box47" class="col-md-10 box">O</div>
+    <div id="box48" class="col-md-10 box">O</div>
+    <div id="box49" class="col-md-10 box">O</div>      
+  </div>
+  <div id="F" class="row">
+    <div class="col-md-10 box measure">F</div>
+    <div id="box50" class="col-md-10 box">O</div>
+    <div id="box51" class="col-md-10 box">O</div>
+    <div id="box52" class="col-md-10 box">O</div>
+    <div id="box53" class="col-md-10 box">O</div>
+    <div id="box54" class="col-md-10 box">O</div>
+    <div id="box55" class="col-md-10 box">O</div>
+    <div id="box56" class="col-md-10 box">O</div>
+    <div id="box57" class="col-md-10 box">O</div>
+    <div id="box58" class="col-md-10 box">O</div>
+    <div id="box59" class="col-md-10 box">O</div>
+  </div>
+  <div id="G" class="row">
+    <div class="col-md-10 box measure">G</div>
+    <div id="box60" class="col-md-10 box">O</div>
+    <div id="box61" class="col-md-10 box">O</div>
+    <div id="box62" class="col-md-10 box">O</div>
+    <div id="box63" class="col-md-10 box">O</div>
+    <div id="box64" class="col-md-10 box">O</div>
+    <div id="box65" class="col-md-10 box">O</div>
+    <div id="box66" class="col-md-10 box">O</div>
+    <div id="box67" class="col-md-10 box">O</div>
+    <div id="box68" class="col-md-10 box">O</div>
+    <div id="box69" class="col-md-10 box">O</div>
+  </div>
+  <div id="H" class="row">
+    <div class="col-md-10 box measure">H</div>
+    <div id="box70" class="col-md-10 box">O</div>
+    <div id="box71" class="col-md-10 box">O</div>
+    <div id="box72" class="col-md-10 box">O</div>
+    <div id="box73" class="col-md-10 box">O</div>
+    <div id="box74" class="col-md-10 box">O</div>
+    <div id="box75" class="col-md-10 box">O</div>
+    <div id="box76" class="col-md-10 box">O</div>
+    <div id="box77" class="col-md-10 box">O</div>
+    <div id="box78" class="col-md-10 box">O</div>
+    <div id="box79" class="col-md-10 box">O</div>
+  </div>
+  <div id="I" class="row">
+    <div class="col-md-10 box measure">I</div>
+    <div id="box80" class="col-md-10 box">O</div>
+    <div id="box81" class="col-md-10 box">O</div>
+    <div id="box82" class="col-md-10 box">O</div>
+    <div id="box83" class="col-md-10 box">O</div>
+    <div id="box84" class="col-md-10 box">O</div>
+    <div id="box85" class="col-md-10 box">O</div>
+    <div id="box86" class="col-md-10 box">O</div>
+    <div id="box87" class="col-md-10 box">O</div>
+    <div id="box88" class="col-md-10 box">O</div>
+    <div id="box89" class="col-md-10 box">O</div>      
+  </div>
+  <div id="J" class="row">
+    <div class="col-md-10 box measure">J</div>
+    <div id="box90" class="col-md-10 box">O</div>
+    <div id="box91" class="col-md-10 box">O</div>
+    <div id="box92" class="col-md-10 box">O</div>
+    <div id="box93" class="col-md-10 box">O</div>
+    <div id="box94" class="col-md-10 box">O</div>
+    <div id="box95" class="col-md-10 box">O</div>
+    <div id="box96" class="col-md-10 box">O</div>
+    <div id="box97" class="col-md-10 box">O</div>
+    <div id="box98" class="col-md-10 box">O</div>
+    <div id="box99" class="col-md-10 box">O</div>      
+  </div>
+</div>
+
+<div id="state"></div>
+<div id="coordinates">
+  <span id="coordR"></span>
+  <span> , </span>
+  <span id="coordC"></span>
+</div>
+
+
+<div id="buttons">
+  <div id="ship">
+    <p>Ships:</p>    
+    <button id="s2" class="ship">2</button>
+    <button id="s3" class="ship">3</button>
+    <button id="s31" class="ship">3</button>
+    <button id="s4" class="ship">4</button>    
+    <button id="s5" class="ship">5</button>    
+  </div>    
+  <div id="row">
+    <p>Row:</p>
+    <button id="A" data-id="0" class="row">A</button>
+    <button id="B" data-id="1" class="row">B</button>
+    <button id="C" data-id="2" class="row">C</button>
+    <button id="D" data-id="3" class="row">D</button>
+    <button id="E" data-id="4" class="row">E</button>
+    <button id="F" data-id="5" class="row">F</button>
+    <button id="G" data-id="6" class="row">C</button>
+    <button id="H" data-id="7" class="row">D</button>
+    <button id="I" data-id="8" class="row">E</button>
+    <button id="J" data-id="9" class="row">F</button>
+  </div>
+  <div id="column">
+    <p>Column:</p>
+    <button id="zero" class="col">0</button>
+    <button id="one" class="col">1</button>
+    <button id="two" class="col">2</button>
+    <button id="three" class="col">3</button>
+    <button id="four" class="col">4</button>
+    <button id="five" class="col">5</button>    
+    <button id="six" class="col">6</button>
+    <button id="seven" class="col">7</button>
+    <button id="eight" class="col">8</button>
+    <button id="nine" class="col">9</button>
+  </div>
+  <button id="confirm" class="confirm">Confirm</button>    
+</div>
+  <!-- <form>
+  Row<br>
+  <input type="text" value="">
+  <br>
+  Column<br>
+  <input type="number" value="">
+</form> -->
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script src="bs3.js"></script>
+</body>
+</html>
