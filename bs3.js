@@ -25,6 +25,68 @@ var shipCoords = [];
 var $state = $('#state');
 var $coordR = $('#coordR');
 var $coordC = $('#coordC');
+var $vert = $('#vert');
+var currentPlayer = "player1";
+var vertical = false; 
+
+function validPlacement(){
+  if (grid[row][col] === "S"){
+    return false; 
+  };
+  if (vertical) {
+    for (var i = 1; i < size; i++) {
+      if (grid[row + i][col] === "S"){
+        return false; 
+      }
+    }
+  } else {
+    for (var i = 1; i < size; i++) {
+      if (grid[row][col + i] === "S"){
+        return false; 
+      }
+    }
+  }
+  return true; 
+};
+
+function placeShip(){
+  grid[row][col] = "S";
+  $('#box'+row+col).text("S");
+  $('#box'+row+col).addClass("occupied");
+  if (vertical) {
+    for (var i = 1; i < size; i++) {
+      row += 1;
+      grid[row][col] = "S";
+      $('#box'+row+col).text("S");
+      $('#box'+row+col).addClass("occupied");
+    }
+  } else {
+    for (var i = 1; i < size; i++) {
+      col += 1;
+      grid[row][col] = "S";
+      $('#box'+row+col).text("S");
+      $('#box'+row+col).addClass("occupied");
+    }
+  }
+
+  limit -= 1; 
+  row = '';
+  col = '';
+  $coordR.text(row);
+  $coordC.text(col);
+  document.getElementById(shipId).disabled = true;
+  if (limit === 0) {
+      var $buttonShip = $('button.ship')
+      for(var i=0; i<$buttonShip.length; i++){
+        $buttonShip[i].disabled = true; 
+      }
+      state = "select target"; 
+    $state.text(state);
+  } else {
+    state = "select ship"; 
+    $state.text(state);
+  }
+};
 
 function init() {
   $state.text(state);
@@ -79,6 +141,17 @@ function buttonClick(){
       $state.text(state);
     };
   };
+  
+  if($this.hasClass('rotate')){
+      if (vertical) {
+        vertical = false; 
+        $vert.text("Horizontal");
+      } else {
+        vertical = true; 
+        $vert.text("Vertical");
+      };
+  };
+  
   if($this.hasClass('row')){
 
     if (state === "place ship" || state === "select target") {
@@ -91,35 +164,35 @@ function buttonClick(){
   if($this.hasClass('col')){
 
     if (state === "place ship" || state === "select target") {
-      col = $this.text();
+      col = parseInt($this.text());
       $coordC.text($this.text());
     };         
   };
   if($this.hasClass('confirm')){
 
     if (state === "place ship") {
-      if (grid[row][col] !== "S") {
-        grid[row][col] = "S";
-        $('#box'+row+col).text("S");
-        $('#box'+row+col).addClass("occupied");
-        limit -= 1; 
-        row = '';
-        col = '';
-        $coordR.text(row);
-        $coordC.text(col);
-        document.getElementById(shipId).disabled = true;
-        if (limit === 0) {
-            var $buttonShip = $('button.ship')
-            for(var i=0; i<$buttonShip.length; i++){
-              $buttonShip[i].disabled = true; 
-            }
-            state = "select target"; 
-          $state.text(state);
-        } else {
-          state = "select ship"; 
-          $state.text(state);
-        }
-        
+      if (validPlacement()) {
+        // grid[row][col] = "S";
+        // $('#box'+row+col).text("S");
+        // $('#box'+row+col).addClass("occupied");
+        // limit -= 1; 
+        // row = '';
+        // col = '';
+        // $coordR.text(row);
+        // $coordC.text(col);
+        // document.getElementById(shipId).disabled = true;
+        // if (limit === 0) {
+        //     var $buttonShip = $('button.ship')
+        //     for(var i=0; i<$buttonShip.length; i++){
+        //       $buttonShip[i].disabled = true; 
+        //     }
+        //     state = "select target"; 
+        //   $state.text(state);
+        // } else {
+        //   state = "select ship"; 
+        //   $state.text(state);
+        // }
+        placeShip(); 
       }; 
 
     } else           
