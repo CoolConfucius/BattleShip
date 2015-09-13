@@ -1,5 +1,5 @@
 body {
-  background-color: whitesmoke;
+  background-color: #90C3D4;
 }
 
 .container{
@@ -11,20 +11,34 @@ h1 {
 }
 
 .box {
-  height: 50px;
-  width: 50px;
-  margin: 2px;
+  height: 40px;
+  width: 40px;
+  margin: 0.5px;
   display: inline-block;
   border: 1px solid black;
-  background-color: grey;
+  background-color: #66ADB3;
+}
+
+.grid {
+  display: inline-block;
+  border: 2px solid black;
+  margin: 2px;
 }
 
 .measure {
   background-color: #cccccc;
 }
 
-.selected{
+.hit{
   background-color: red;
+}
+
+.miss {
+  background-color: whitesmoke;
+}
+
+.occupied{
+  background-color: #DEE0AD;
 }
 
 .btn{
