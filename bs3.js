@@ -98,14 +98,10 @@ function placeShip(player, grid, row, col, size, vertical){
     $coordR.text(row);
     $coordC.text(col);
     document.getElementById(shipId).disabled = true;
-    if (limit === 0) {
-        var $buttonShip = $('button.ship')
-        for(var i=0; i<$buttonShip.length; i++){
-          $buttonShip[i].disabled = true; 
-        }
-        document.getElementById('rotate').disabled = true;
-        $vert.text('');
-        state = "select target"; 
+    if (limit === 0) {        
+      $vert.text('');
+      document.getElementById('rotate').disabled = true;
+      state = "select target"; 
       $state.text(state);
     } else {
       state = "select ship"; 
@@ -122,55 +118,45 @@ function placeShipAI(grid2){
   var vertical; 
   var size; 
   for (var i = 0; i < ships; i++) {
-    // for predictable opponent
-    switch(i){
-      case 0:
-        size = 2; 
-        row = Math.floor((Math.random() * 2)); 
-        col = Math.floor((Math.random() * 2)); 
-        vertical = false;
-        break;  
-      case 1:
-        size = 3; 
-        row = Math.floor((Math.random() * 3)) + 3; 
-        col = Math.floor((Math.random() * 4)) + 3; 
-        vertical = true;
-        break; 
-      case 2:
-        size = 3; 
-        row = Math.floor((Math.random() * 3)); 
-        col = Math.floor((Math.random() * 2)) + 4; 
-        vertical = false;
-        break; 
-      case 3:
-        size = 4; 
-        row = Math.floor((Math.random() * 2)) + 4; 
-        col = Math.floor((Math.random() * 2)) + 1; 
-        vertical = true;
-      break; 
-      default:
-        size = 5; 
-        row = Math.floor((Math.random())) + 8; 
-        col = Math.floor((Math.random() * 4)) + 2; 
-        vertical = false;
+    vertical = Math.round((Math.random()));    
+    if (i === 0 || i === 1) { 
+      size = i + 2; 
+      row = Math.floor((Math.random() * 9));
+      col = Math.floor((Math.random() * 9)); 
+    } else { 
+      size = i + 1; 
     }
-    // for random opponent 
-    // vertical = Math.round((Math.random()));    
-    // if (i === 0 || i === 1) { 
-    //   size = i + 2; 
-    //   row = Math.floor((Math.random() * 9));
-    //   col = Math.floor((Math.random() * 9)); 
-    // } else { 
-    //   size = i + 1; 
-    // }
-    // while (validPlacement(grid2, row, col, size, vertical) === false){
-    //   row = Math.floor((Math.random() * 9));
-    //   col = Math.floor((Math.random() * 9));  
-    // }
+    while (validPlacement(grid2, row, col, size, vertical) === false){
+      row = Math.floor((Math.random() * 9));
+      col = Math.floor((Math.random() * 9));  
+    }
     placeShip('player2', grid2, row, col, size, vertical); 
   };
 };
 
+function hitTile(player, grid, row, col){
+  var box = (player === "player1") ? '#bx' : '#box';  
+  if (grid[row][col] === "S") {
+    grid[row][col] = "H";
+    $(box+row+col).text("H");
+    $(box+row+col).addClass("hit");
+    (player === "player1") ? hits2 += 1 : hits1 += 1;  
+    if (hits1 === 17) {
+      $('#win').text("You lost all your battle ships!");
+      state = "You lose";
+      $state.text(state);
+    };
+    if (hits2 === 17) {
+      $('#win').text("You sunk all their battleships!");
+      state = "You win";
+      $state.text(state);
+    };
+  } else {
+    grid[row][col] = "M";
+    $(box+row+col).text("M");
+    $(box+row+col).addClass("miss");
+  }  
+};
 
 function attackAI(){
   var row = Math.floor((Math.random() * 10)); 
@@ -179,20 +165,15 @@ function attackAI(){
     row = Math.floor((Math.random() * 10));
     col = Math.floor((Math.random() * 10));  
   } 
-  if (grid1[row][col] === "S") {
-    grid1[row][col] = "H";
-    $('#box'+row+col).text("H");
-    $('#box'+row+col).addClass("hit");
-    hits1 += 1; 
-  } else {
-    grid1[row][col] = "M";
-    $('#box'+row+col).text("M");
-    $('#box'+row+col).addClass("miss");
-  }
-  if (hits1 === 17) {
-    $('#win').text("You lost all your battle ships!");
-  };
+  hitTile('player2', grid1, row, col);
 };
+function hitOpponent(){
+  console.log(row, col);
+  if (grid2[row][col] !== "M" && grid2[row][col] !== "H") {                
+    hitTile('player1', grid2, row, col);
+    attackAI();
+  }
+}
 
 function buttonClick(){
   var $this = $(this);
@@ -213,17 +194,16 @@ function buttonClick(){
   };
   
   if($this.hasClass('rotate')){
-      if (vertical) {
-        vertical = false; 
-        $vert.text("Horizontal");
-      } else {
-        vertical = true; 
-        $vert.text("Vertical");
-      };
+    if (vertical) {
+      vertical = false; 
+      $vert.text("Horizontal");
+    } else {
+      vertical = true; 
+      $vert.text("Vertical");
+    };
   };
   
   if($this.hasClass('row')){
-
     if (state === "place ship" || state === "select target") {
       row = $this.data('id');
       
@@ -232,7 +212,6 @@ function buttonClick(){
   };
   
   if($this.hasClass('col')){
-
     if (state === "place ship" || state === "select target") {
       col = parseInt($this.text());
       $coordC.text($this.text());
@@ -276,23 +255,3 @@ function theirsClick(){
     hitOpponent();
   };
 };
-
-function hitOpponent(){
-  console.log(row, col);
-  if (grid2[row][col] !== "M" && grid2[row][col] !== "H") {                
-    if (grid2[row][col] === "S") {
-      grid2[row][col] = "H";
-      $('#bx'+row+col).text("H");
-      $('#bx'+row+col).addClass("hit");
-      hits2 += 1;
-      if (hits2 === 17) {
-        $('#win').text("You sunk all their battleships!");
-      };
-    } else {
-      grid2[row][col] = "M";
-      $('#bx'+row+col).text("M");
-      $('#bx'+row+col).addClass("miss");
-    }             
-    attackAI();
-  }
-}
