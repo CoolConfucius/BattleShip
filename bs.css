@@ -1,0 +1,57 @@
+body {
+  background-color: #90C3D4;
+}
+
+.container{
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  font-size: 20px;   
+}
+div {
+  font-size: 20px; 
+}
+span {
+  font-size: 20px; 
+}
+
+.box {
+  height: 40px;
+  width: 40px;
+  margin: 0.5px;
+  display: inline-block;
+  border: 1px solid black;
+  background-color: #66ADB3;
+}
+
+.grid {
+  display: inline-block;
+  border: 2px solid black;
+  margin: 2px;
+}
+
+.measure {
+  background-color: #cccccc;
+}
+
+.miss {
+  background-color: whitesmoke;
+}
+
+.occupied{
+  background-color: #DEE0AD;
+}
+
+.hit{
+  background-color: red;
+}
+
+.btn{
+  height: 30px;
+  width: 200px;
+}
