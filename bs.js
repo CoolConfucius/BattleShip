@@ -1,24 +1,22 @@
 $(document).ready(init);
 function init() {
-  $state.text(state);
+  $state.text("Click the Join button to start the game!");
   $('button').click(buttonClick); 
   $('#yours').on('click', '.tile', (yoursClick));
   $('#theirs').on('click', '.tile', (theirsClick));
 };
 
-var grid1 = [[], [], [], [], [], [], [], [], [], []];
-for (var i = 0; i < grid1.length; i++) {
-  for (var j = 0; j < 10; j++) {
-    grid1[i].push('O');    
+function makeJSGrid(){
+  var grid = [[], [], [], [], [], [], [], [], [], []]; 
+  for (var i = 0; i < grid.length; i++) {
+    for (var j = 0; j < 10; j++) {
+      grid[i].push('O');    
+    };
   };
-};
-
-var grid2 = [[], [], [], [], [], [], [], [], [], []];
-for (var i = 0; i < grid2.length; i++) {
-  for (var j = 0; j < 10; j++) {
-    grid2[i].push('U');    
-  };
-};
+  return grid; 
+}; 
+var grid1 = makeJSGrid(); 
+var grid2 = makeJSGrid(); 
 
 var row;
 var col; 
@@ -102,10 +100,10 @@ function placeShip(player, grid, row, col, size, vertical){
       $vert.text('');
       document.getElementById('rotate').disabled = true;
       state = "select target"; 
-      $state.text(state);
+      $state.text("Select a target to hit!");
     } else {
       state = "select ship"; 
-      $state.text(state);
+      $state.text("Select a ship to place on your grid");
     }  
   };
 };
@@ -143,12 +141,12 @@ function hitTile(player, grid, row, col){
     (player === "player1") ? hits2 += 1 : hits1 += 1;  
     if (hits1 === 17) {
       $('#win').text("You lost all your battle ships!");
-      state = "You lose";
+      state = "You lose!";
       $state.text(state);
     };
     if (hits2 === 17) {
       $('#win').text("You sunk all their battleships!");
-      state = "You win";
+      state = "You win!";
       $state.text(state);
     };
   } else {
@@ -168,7 +166,6 @@ function attackAI(){
   hitTile('player2', grid1, row, col);
 };
 function hitOpponent(){
-  console.log(row, col);
   if (grid2[row][col] !== "M" && grid2[row][col] !== "H") {                
     hitTile('player1', grid2, row, col);
     attackAI();
@@ -181,15 +178,56 @@ function buttonClick(){
     if (state === "click join") {
       placeShipAI(grid2); 
       state = "select ship";
-      $state.text(state);
+      $state.text("Select a ship to place on your grid");
     };
+  };
+
+  if ($this.hasClass('restart')) {
+    $state.text("Click the Join button to start the game!");
+    $('#win').text("");
+    grid1 = makeJSGrid();
+    grid2 = makeJSGrid();
+    row = '';
+    col = ''; 
+    ships = [2, 3, 3, 4, 5]; 
+    limit = 5; 
+    state = "click join";
+    size = ''; 
+    shipId = ''; 
+    shipCoords = []; 
+    $state = $('#state');
+    $coordR = $('#coordR');
+    $coordC = $('#coordC');
+    $vert = $('#vert');
+    currentPlayer = "player1";
+    vertical = false;
+    hits1 = 0;  
+    hits2 = 0;  
+
+
+    for (var row = 0; row < 10; row++) {
+      for (var col = 0; col < 10; col++) {
+        $('#box'+row+col).removeClass("occupied").removeClass("hit").removeClass("miss");
+        $('#box'+row+col).text("O");        
+        $('#bx'+row+col).removeClass("occupied").removeClass("hit").removeClass("miss");
+        $('#bx'+row+col).text("O");
+      };
+    };
+
+    document.getElementById('s2').disabled = false;
+    document.getElementById('s3').disabled = false;
+    document.getElementById('s31').disabled = false;
+    document.getElementById('s4').disabled = false;
+    document.getElementById('s5').disabled = false;
+    document.getElementById('rotate').disabled = false;
+    
   };
   if($this.hasClass('ship')){
     if (state === "select ship") {
       size = parseInt($this.text());
       shipId = $this[0].id;
       state = "place ship";
-      $state.text(state);
+      $state.text("Place the ship you selected on your grid");
     };
   };
   
